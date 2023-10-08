@@ -1,0 +1,17 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>@DateTime.Now.ToLongDateString()</p>
+
+    @if ((double)ViewData["random"]> 0.5)
+    {
+        <p style="background-color: red">@ViewData["random"]</p>
+    }
+    else
+    {
+        <p>@ViewData["random"]</p>
+    }
+</div>
