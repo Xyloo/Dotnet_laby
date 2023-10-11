@@ -1,11 +1,12 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
+using System.Globalization;
 using Lab2;
 
-void Zadanie2_1()
+void CreateAndListFruit(int amount)
 {
     var fruits = new List<Fruit>();
-    for (var i = 0; i < 15; i++)
+    for (var i = 0; i < amount; i++)
     {
         fruits.Add(Fruit.Create());
     }
@@ -16,4 +17,5 @@ void Zadanie2_1()
     }
 }
 UsdCourse.Current = await UsdCourse.GetUsdCourseAsync();
-Zadanie2_1();
+Console.WriteLine($"Current PLN->USD course: {UsdCourse.Current}");
+CreateAndListFruit(15);

@@ -3,37 +3,33 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
+using System.Xml.Linq;
 
 namespace Lab2
 {
     internal class UsdCourse
     {
-        public static float Current = 0;
+        public static decimal Current = 0;
 
-        public static async Task<float> GetUsdCourseAsync()
+        public static async Task<decimal> GetUsdCourseAsync()
         {
             var wc = new HttpClient();
             var response = await wc.GetAsync("http://www.nbp.pl/kursy/xml/LastA.xml");
             if (!response.IsSuccessStatusCode)
                 throw new InvalidOperationException();
 
-            var xd = new System.Xml.XmlDocument();
-            xd.LoadXml(await response.Content.ReadAsStringAsync());
+            XElement xe = XElement.Parse(await response.Content.ReadAsStringAsync());
+            var x = xe.Descendants("pozycja")
+                .FirstOrDefault(x => x.Element("kod_waluty")?.Value == "USD")
+                ?.Element("kurs_sredni")?.Value;
 
-            foreach (System.Xml.XmlNode p in xd.GetElementsByTagName("pozycja"))
-            {
-                if (p.NodeType == System.Xml.XmlNodeType.Element)
-                {
-                    System.Xml.XmlElement pp = (System.Xml.XmlElement)p;
-                    System.Xml.XmlElement w = (System.Xml.XmlElement)pp.GetElementsByTagName("kod_waluty")[0];
-                    if (w.InnerText == "USD")
-                    {
-                        return Convert.ToSingle(pp.GetElementsByTagName("kurs_sredni")[0].InnerText);
-                    }
-                }
-            }
+            var parseSuccessful = decimal.TryParse(x, out decimal result);
 
-            throw new InvalidOperationException();
+            if (!parseSuccessful)
+                throw new InvalidOperationException();
+
+            return result;
         }
     }
 }

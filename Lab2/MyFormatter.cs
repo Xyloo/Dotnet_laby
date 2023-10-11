@@ -9,7 +9,7 @@ namespace Lab2
 {
     public class MyFormatter
     {
-        public static string FormatUsdPrice(double price)
+        public static string FormatUsdPrice(decimal price)
         {
             var usc = new CultureInfo("en-US");
             return price.ToString("C2", usc);

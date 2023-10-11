@@ -11,8 +11,8 @@ namespace Lab2
     {
         public string Name { get; set; }
         public bool IsSweet { get; set; }
-        public double Price { get; set; }
-        public double UsdPrice => Price / UsdCourse.Current;
+        public decimal Price { get; set; }
+        public decimal UsdPrice => Price / UsdCourse.Current;
 
         public static Fruit Create()
         {
@@ -27,13 +27,13 @@ namespace Lab2
             {
                 Name = names[r.Next(names.Length)],
                 IsSweet = r.NextDouble() > 0.5,
-                Price = r.NextDouble() * 10
+                Price = r.Next(1000) / 100m
             };
         }
 
         public override string ToString()
         {
-            return $"Fruit: Name={Name}, IsSweet={IsSweet}, Price={Price:C2}, UsdPrice={MyFormatter.FormatUsdPrice(Price)}";
+            return $"Fruit: Name={Name}, IsSweet={IsSweet}, Price={Price:C2}, UsdPrice={MyFormatter.FormatUsdPrice(UsdPrice)}";
         }
     }
 }
