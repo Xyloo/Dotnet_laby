@@ -17,6 +17,8 @@ namespace Lab3.Controllers
 
         public IActionResult Index()
         {
+            Random r = new();
+            ViewData["random"] = r.NextDouble();
             return View(_phoneBook.GetContacts());
         }
 
@@ -50,12 +52,11 @@ namespace Lab3.Controllers
 
         public IActionResult Delete(int id)
         {
-            if (!_phoneBook.IsIdValid(id))
+            if (!_phoneBook.Remove(id))
             {
                 return NotFound();
             }
             
-            _phoneBook.Remove(id);
             return RedirectToAction("Index");
         }
     }

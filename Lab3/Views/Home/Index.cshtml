@@ -2,9 +2,22 @@
 
 @{
     ViewData["Title"] = "Index";
+    
 }
 
-<h1>Index</h1>
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>@DateTime.Now.ToLongDateString()</p>
+
+    @if (double.TryParse(ViewData["random"].ToString(), out double result) && result > 0.5)
+    {
+        <p style="background-color: red">@ViewData["random"]</p>
+    }
+    else
+    {
+        <p>@ViewData["random"]</p>
+    }
+</div>
 
 <p>
     <a asp-action="Create">Create New</a>

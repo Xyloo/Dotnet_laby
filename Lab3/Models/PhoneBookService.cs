@@ -85,15 +85,11 @@
             contacts.Add(contact);
         }
 
-        public void Remove(int id)
+        public bool Remove(int id)
         {
-            contacts.RemoveAll(c => c.Id == id);
+            return contacts.Remove(contacts.FirstOrDefault(c => c.Id == id, null));
         }
 
-        public bool IsIdValid(int id)
-        {
-            return contacts.Any(c => c.Id == id);
-        }
     }
 }
     
