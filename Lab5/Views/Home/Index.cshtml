@@ -40,7 +40,7 @@
                 @Html.DisplayFor(modelItem => item.Rating)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.TrailerLink)
+                @Html.DisplayFor(modelItem => item.TrailerLink, "TrailerHyperlink")
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |

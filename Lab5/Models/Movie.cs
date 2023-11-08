@@ -9,8 +9,8 @@ namespace Lab5.Models
         [UIHint("LongText")]
         public string Description { get; set; }
         [UIHint("Stars")]
+        [Range(0, 5)]
         public int Rating { get; set;}
-        [UIHint("TrailerHyperlink")]
         public string TrailerLink { get; set; }
     }
 }
