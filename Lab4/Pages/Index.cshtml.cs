@@ -7,7 +7,7 @@ namespace Lab4.Pages
     {
         private readonly ILogger<IndexModel> _logger;
         public List<string> Images { get; set; }
-        private string imagesDir;
+        private readonly string imagesDir;
 
         public IndexModel(ILogger<IndexModel> logger, IWebHostEnvironment environment)
         {

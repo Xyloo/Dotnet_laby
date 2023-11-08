@@ -10,10 +10,13 @@ namespace Lab4.Pages
         public IFormFile Upload { get; set; }
 
         private string imagesDir;
+        private MagickImage watermark;
 
         public UploadModel(IWebHostEnvironment environment)
         { 
             imagesDir = Path.Combine(environment.WebRootPath, "images");
+            watermark = new MagickImage("watermark.png");
+            watermark.Evaluate(Channels.Alpha, EvaluateOperator.Divide, 4);
         }
         public void OnGet()
         {
@@ -36,13 +39,10 @@ namespace Lab4.Pages
                 var fileName = Path.GetFileNameWithoutExtension(Path.GetRandomFileName()) + extension;
 
                 using var image = new MagickImage(Upload.OpenReadStream());
-                using var watermark = new MagickImage("watermark.png");
                 watermark.Resize(image.Width / 3, image.Height / 3);
-                watermark.Evaluate(Channels.Alpha, EvaluateOperator.Divide, 4);
                 image.Composite(watermark, Gravity.Southeast, CompositeOperator.Over);
 
-                using var fs = System.IO.File.OpenWrite(Path.Combine(imagesDir, fileName));
-                image.Write(fs);
+                image.WriteAsync(Path.Combine(imagesDir, fileName));
             }
             return RedirectToPage("Index");
         }
