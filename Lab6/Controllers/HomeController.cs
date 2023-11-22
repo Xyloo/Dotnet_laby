@@ -24,7 +24,7 @@ namespace Lab6.Controllers
         {
               return _context.Movies != null ? 
                           View(await _context.Movies.Include(x=>x.Genre).ToListAsync()) :
-                          Problem("Entity set 'MoviesDbContext.Movies'  is null.");
+                          Problem("Entity set 'MoviesDbContext.Movies' is null.");
         }
 
         // GET: Home/Details/5

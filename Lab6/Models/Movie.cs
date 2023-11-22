@@ -19,7 +19,6 @@ namespace Lab6.Models
         [Range(1, 5, ErrorMessage = "Ocena musi być liczbą z zakresu 1-5")]
         public int Rating { get; set;}
 
-        [UIHint("TrailerHyperlink")]
         public string? TrailerLink { get; set; }
 
         public Genre Genre { get; set; }
