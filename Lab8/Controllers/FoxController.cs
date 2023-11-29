@@ -1,4 +1,5 @@
-﻿using Lab8.Data;
+﻿using System.Runtime.CompilerServices;
+using Lab8.Data;
 using Lab8.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -41,27 +42,16 @@ namespace Lab8.Controllers
         [HttpPut("love/{id}")]
         public IActionResult Love(int id)
         {
-            var fox = _foxesRepository.Get(id);
-            if (fox == null)
-                return NotFound();
-
-            fox.Loves++;
-            _foxesRepository.Update(id, fox);
-            
-            return Ok(fox);
+            var fox = _foxesRepository.IncrementLoves(id);
+            return fox is null ? NotFound() : Ok(fox);
         }
 
         [HttpPut("hate/{id}")]
         public IActionResult Hate(int id)
         {
-            var fox = _foxesRepository.Get(id);
-            if (fox == null)
-                return NotFound();
-
-            fox.Hates++;
-            _foxesRepository.Update(id, fox);
+            var fox = _foxesRepository.IncrementHates(id);
             
-            return Ok(fox);
+            return fox is null ? NotFound() : Ok(fox);
         }
     }
 }

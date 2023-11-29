@@ -8,5 +8,7 @@ namespace Lab8.Data
         Fox? Get(int id);
         IEnumerable<Fox> GetAll();
         void Update(int id, Fox f);
+        Fox? IncrementLoves(int id);
+        Fox? IncrementHates(int id);
     }
 }

@@ -1,5 +1,7 @@
-﻿using Lab8.Models;
+﻿using System.Runtime.InteropServices;
+using Lab8.Models;
 using LiteDB;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Lab8.Data
 {
@@ -30,6 +32,28 @@ namespace Lab8.Data
             c.Loves = f.Loves;
             c.Hates = f.Hates;
             db.GetCollection<Fox>().Update(c);
+        }
+
+        public Fox? IncrementLoves(int id)
+        {
+            Fox? fox = db.GetCollection<Fox>().FindById(id);
+            if (fox == null)
+                return null;
+
+            fox.Loves++;
+            db.GetCollection<Fox>().Update(fox);
+            return fox;
+        }
+
+        public Fox? IncrementHates(int id)
+        {
+            Fox? fox = db.GetCollection<Fox>().FindById(id);
+            if (fox == null)
+                return null;
+
+            fox.Hates++;
+            db.GetCollection<Fox>().Update(fox);
+            return fox;
         }
     }
 
